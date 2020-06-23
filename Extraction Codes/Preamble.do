@@ -20,7 +20,6 @@ global out_dir			"${ROOT}/output"
 global code_dir			"${ROOT}/code"
 global tmp_dir			"${ROOT}/tmp"
 
-
 ******************************
 ** 	Do files for rainfall 	**
 ******************************

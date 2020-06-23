@@ -24,13 +24,14 @@
 # Folder Path
 ####################
 
-home_dir   <-'C:/Users/Francisco/Dropbox/Consultancy/2020-Steven_Helfand'
-data_shp_dir  <-'C:/Users/Francisco/Dropbox/data_sources/Shapefiles/AMC'
+data_shp_dir    <-'C:/Users/Francisco/Dropbox/data_sources/Shapefiles/AMC'
 data_ncdf_dir   <-'C:/Users/Francisco/Dropbox/data_sources/Climatologia/Willmott and Matsuura/Temperature V 5.01'
-out_dir   <- 'C:/Users/Francisco/Dropbox/Consultancy/2020-Steven_Helfand/output'
-in_dir  <-'C:/Users/Francisco/Dropbox/Consultancy/2020-Steven_Helfand/input'
-tmp_dir   <-'C:/Users/Francisco/Dropbox/Consultancy/2020-Steven_Helfand/tmp'
-code_dir  <-'C:/Users/Francisco/Dropbox/Consultancy/2020-Steven_Helfand/code'
+
+home_dir    <-'C:/Users/Francisco/Dropbox/Consultancy/2020-Steven_Helfand'
+out_dir     <-'C:/Users/Francisco/Dropbox/Consultancy/2020-Steven_Helfand/output'
+in_dir      <-'C:/Users/Francisco/Dropbox/Consultancy/2020-Steven_Helfand/input'
+tmp_dir     <-'C:/Users/Francisco/Dropbox/Consultancy/2020-Steven_Helfand/tmp'
+code_dir    <-'C:/Users/Francisco/Dropbox/Consultancy/2020-Steven_Helfand/code'
 
 ####################
 # install packages
