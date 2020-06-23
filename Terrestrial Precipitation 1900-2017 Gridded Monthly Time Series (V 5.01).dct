@@ -1,0 +1,16 @@
+dictionary {	
+_column(1) float lon %8.3g "Longitude (decimal degrees)"
+_column(9) float lat %8.3g "Latitude (decimal degrees)"
+_column(17) float Jan %8.1g "Monthly Total Precipitation (mm)"
+_column(25) float Fev %8.1g "Monthly Total Precipitation (mm)"
+_column(33) float Mar %8.1g "Monthly Total Precipitation (mm)"
+_column(41) float Apr %8.1g "Monthly Total Precipitation (mm)"
+_column(49) float May %8.1g "Monthly Total Precipitation (mm)"
+_column(57) float Jun %8.1g "Monthly Total Precipitation (mm)"
+_column(65) float Jul %8.1g "Monthly Total Precipitation (mm)"
+_column(73) float Aug %8.1g "Monthly Total Precipitation (mm)"
+_column(81) float Sep %8.1g "Monthly Total Precipitation (mm)"
+_column(89) float Oct %8.1g "Monthly Total Precipitation (mm)"
+_column(97) float Nov %8.1g "Monthly Total Precipitation (mm)"
+_column(105) float Dec %8.1g "Monthly Total Precipitation (mm)"
+}
