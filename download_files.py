@@ -39,7 +39,7 @@ url = 'ftp://ftp.cdc.noaa.gov/Datasets/udel.airt.precip/air.mon.mean.v501.nc'
 Path.cwd()
 
 # changing directory
-os.chdir('C:\\Users\Francisco\\Dropbox\\data_sources\\Climatologia\\Willmott and Matsuura\\Precipitation V 5.01')
+os.chdir('C:\\Users\\Francisco\\Dropbox\\data_sources\\Climatologia\\Willmott and Matsuura\\Precipitation V 5.01')
 Path.cwd()
 
 
@@ -66,17 +66,17 @@ for year in years:
 
 """
 # open zipfiles
-for zipfiles in os.listdir(r'C:\Users\Francisco\Dropbox\data_sources\Climatologia\Willmott and Matsuura\Precipitation V 5.01'):
+for zipfiles in os.listdir(r'C:\\Users\\Francisco\\Dropbox\\data_sources\\Climatologia\\Willmott and Matsuura\recipitation V 5.01'):
     print(zipfiles)
     if zipfiles[-3, ] == '.gz':
-        patoolib.extract_arquive(zipfiles, oudir = r:'C:\Users\Francisco\Dropbox')
+        patoolib.extract_arquive(zipfiles, oudir = r:'C:\\Users\\Francisco\\Dropbox')
 """
 
 """
 # put the .nc in the final name of the arquive
-for extracted_files in os.listdir(r'C:\Users\Francisco\Dropbox\data_sources\Climatologia\Terrestrial Precipitation - 1900-2010 Gridded Monthly Time Series\Terrestrial Precipitation 1900-2017 Gridded Monthly Time Series (V 5.01)'):
+for extracted_files in os.listdir(r'C:\\Users\\Francisco\\Dropbox\\data_sources\\Climatologia\\Terrestrial Precipitation - 1900-2010 Gridded Monthly Time Series\Terrestrial Precipitation 1900-2017 Gridded Monthly Time Series (V 5.01)'):
     # change the directory
-    os.chdir(r'C:\Users\Francisco\Dropbox\data_sources\Climatologia\Terrestrial Precipitation - 1900-2010 Gridded Monthly Time Series\Terrestrial Precipitation 1900-2017 Gridded Monthly Time Series (V 5.01)')
+    os.chdir(r'C:\\Users\\Francisco\\Dropbox\\data_sources\\Climatologia\\Terrestrial Precipitation - 1900-2010 Gridded Monthly Time Series\Terrestrial Precipitation 1900-2017 Gridded Monthly Time Series (V 5.01)')
     os.rename(extracted_files, extracted_files+'.nc')
 """
 """

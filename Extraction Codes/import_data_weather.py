@@ -41,7 +41,7 @@ from netCDF4 import Dataset
 Path.cwd()
 
 # changing directory
-os.chdir('C:\\Users\Francisco\\Dropbox\\data_sources\\Climatologia\\Willmott and Matsuura\\Precipitation V 5.01')
+os.chdir('C:\\Users\\Francisco\\Dropbox\\data_sources\\Climatologia\\Willmott and Matsuura\\Precipitation V 5.01')
 Path.cwd()
 
 # set a directory path
