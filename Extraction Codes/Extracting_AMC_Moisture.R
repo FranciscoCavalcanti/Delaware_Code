@@ -48,11 +48,11 @@ if (user == "Francisco" ){
   stop("Invalid user")
 }
 
-home_dir  <-file.path(ROOT, "Consultancy", "2020-Steven_Helfand")
-in_dir  <-file.path(ROOT, "Consultancy", "2020-Steven_Helfand", "input")
-out_dir  <-file.path(ROOT, "Consultancy", "2020-Steven_Helfand", "output")
-tmp_dir  <-file.path(ROOT, "Consultancy", "2020-Steven_Helfand", "tmp")
-code_dir  <-file.path(ROOT, "Consultancy", "2020-Steven_Helfand", "code")
+home_dir  <-file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware")
+in_dir  <-file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "input")
+out_dir  <-file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "output")
+tmp_dir  <-file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "tmp")
+code_dir  <-file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "code")
 data_shp_dir  <-file.path(ROOT, "data_sources", "Shapefiles", "AMC_Ehrl")
 data_ncdf_dir  <-file.path(ROOT, "data_sources", "Climatologia", "Willmott_and_Matsuura", "Moisture_Index_V401")
 
@@ -69,7 +69,7 @@ library(tidyverse)
 
 # read shapefile
 setwd(data_shp_dir)
-shapefile<-st_read('amc_1980_2010.shp')
+shapefile<-st_read('amc_2000_2010.shp')
 crs(shapefile)
 
 # convert crs
@@ -102,7 +102,7 @@ file.rename(old_file_name, new_file_name)
 #################################################
 
 # begin of loop
-for (yr in 1902:2017){
+for (yr in 1969:2017){
 
   # list each csv file year by year
   setwd(data_ncdf_dir)
@@ -116,18 +116,18 @@ for (yr in 1902:2017){
   # rename variables
   myColNames <- c("lon",
                   "lat",
-                  "Jan",
-                  "Fev",
-                  "Mar",
-                  "Apr",
-                  "May",
-                  "Jun",
-                  "Jul",
-                  "Aug",
-                  "Sep",
-                  "Oct",
-                  "Nov",
-                  "Dec",
+                  "_01",
+                  "_02",
+                  "_03",
+                  "_04",
+                  "_05",
+                  "_06",
+                  "_07",
+                  "_08",
+                  "_09",
+                  "_10",
+                  "_11",
+                  "_12",
                   "Annual")
   
   names(Xdata) <- myColNames
@@ -173,19 +173,21 @@ for (yr in 1902:2017){
   names(masked_file@data[27])
   # December at 38
   names(masked_file@data[38])
-  
+  # Annual at 39
+  names(masked_file@data[39])
+
   # begin of loop over months
-  for (i in 27:38){
+  for (i in 27:39){
   
     # extract only relevant variables
     munic <- masked_file$GEOCODIG_M
-    amc_1980 <- masked_file$amc_1980_2
+    amc_2000 <- masked_file$amc_2000_2
     monthly_moisture <- masked_file[i]
     month <- masked_file[i] %>% 
       names() 
   
     # Compile the codes for AMC and time variable in one dataframe
-    df <- data.frame(munic, amc_1980, monthly_moisture, yr, month)
+    df <- data.frame(munic, amc_2000, monthly_moisture, yr, month)
       
     # rename variables
     colnames(df)[3] <- "monthly_moisture"

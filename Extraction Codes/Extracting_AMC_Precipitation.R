@@ -24,13 +24,23 @@
 # Folder Path
 ####################
 
-home_dir   <-'C:/Users/Francisco/Dropbox/Consultancy/2020-Steven_Helfand'
-data_shp_dir  <-'C:/Users/Francisco/Dropbox/data_sources/Shapefiles/AMC_Ehrl'
-data_ncdf_dir   <-'C:/Users/Francisco/Dropbox/data_sources/Climatologia/Willmott and Matsuura/Precipitation V 5.01'
-out_dir   <- 'C:/Users/Francisco/Dropbox/Consultancy/2020-Steven_Helfand/output'
-in_dir  <-'C:/Users/Francisco/Dropbox/Consultancy/2020-Steven_Helfand/input'
-tmp_dir   <-'C:/Users/Francisco/Dropbox/Consultancy/2020-Steven_Helfand/tmp'
-code_dir  <-'C:/Users/Francisco/Dropbox/Consultancy/2020-Steven_Helfand/code'
+user <- Sys.info()[["user"]]
+message(sprintf("Current User: %s\n"))
+if (user == "Francisco" ){
+  ROOT <- 'C:/Users/Francisco/Dropbox'
+} else if (user == "f.cavalcanti"){
+  ROOT <- 'C:/Users/Francisco/Dropbox'  
+} else {
+  stop("Invalid user")
+}
+
+home_dir  <-file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware")
+in_dir  <-file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "input")
+out_dir  <-file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "output")
+tmp_dir  <-file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "tmp")
+code_dir  <-file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "code")
+data_shp_dir  <-file.path(ROOT, "data_sources", "Shapefiles", "AMC_Ehrl")
+data_ncdf_dir  <-file.path(ROOT, "data_sources", "Climatologia", "Willmott_and_Matsuura", "Precipitation_V501")
 
 ####################
 # install packages
@@ -62,7 +72,7 @@ library(tidyverse)
 
 # read shapefile
 setwd(data_shp_dir)
-shapefile<-st_read('amc_1980_2010.shp')
+shapefile<-st_read('amc_2000_2010.shp')
 crs(shapefile)
 
 # convert crs
@@ -73,7 +83,7 @@ class(shapefile)
 summary(shapefile)
 variable.names(shapefile)
 summary(shapefile[variable.names("GEOCODIG_M")])
-summary(shapefile[variable.names("amc_1980_2")])
+summary(shapefile[variable.names("amc_2000_2")])
 summary(shapefile[variable.names("UF")])
 
 # additional check in the shapefile
@@ -136,14 +146,14 @@ for (i in 20:nl){
   
   # extract only relevant variables
   munic <- masked_file$GEOCODIG_M
-  amc_1980 <- masked_file$amc_1980_2
+  amc_2000 <- masked_file$amc_2000_2
   monthly_rainfall <- masked_file[i]
   date <- masked_file[i] %>% 
     names() %>% 
     str_sub(start = 2, end = 11)
   
   # Compile the codes for AMC and time variable in one dataframe
-  df <- data.frame(munic, amc_1980, monthly_rainfall, date)
+  df <- data.frame(munic, amc_2000, monthly_rainfall, date)
 
   # rename variables
   colnames(df)[3] <- "monthly_rainfall"
