@@ -103,8 +103,13 @@ print(list_files)
 length(list_files)
 
 # call netcdf file
-temp_file1<- "precip.mon.total.v501.nc"
+temp_file1<- "precip.mon.total.v501.nc" 
 temp_file1 = brick(temp_file1) # read netcdf file
+
+# Important note: the unit of degrees of rainfall might change depending on the dataset used
+# The data "precip.mon.total.v501.nc" is from NOAA
+# So, the units are "cm/month"
+# Other datas, the untis are "mm/month"
 
 # check the data
 extent(temp_file1)
