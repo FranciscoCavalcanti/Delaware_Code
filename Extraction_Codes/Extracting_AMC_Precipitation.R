@@ -3,7 +3,7 @@
 # The purpose is to extract monthly data of rainfall for every Brazilians AMC
 #
 # There are two important datasets:
-# 
+#
 # 1) Shapefile data of AMC for Brazil
 # 2) NetCDF data of precipitation from Willmott, C. J. and K. Matsuura (2001)
 #
@@ -26,21 +26,21 @@
 
 user <- Sys.info()[["user"]]
 message(sprintf("Current User: %s\n"))
-if (user == "Francisco" ){
-  ROOT <- 'C:/Users/Francisco/Dropbox'
-} else if (user == "f.cavalcanti"){
-  ROOT <- 'C:/Users/Francisco/Dropbox'  
+if (user == "Francisco") {
+  ROOT <- "C:/Users/Francisco/Dropbox"
+} else if (user == "f.cavalcanti") {
+  ROOT <- "C:/Users/Francisco/Dropbox"
 } else {
   stop("Invalid user")
 }
 
-home_dir  <-file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware")
-in_dir  <-file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "input")
-out_dir  <-file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "output")
-tmp_dir  <-file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "tmp")
-code_dir  <-file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "code")
-data_shp_dir  <-file.path(ROOT, "data_sources", "Shapefiles", "AMC_Ehrl")
-data_ncdf_dir  <-file.path(ROOT, "data_sources", "Climatologia", "Willmott_and_Matsuura", "Precipitation_V501")
+home_dir <- file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware")
+in_dir <- file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "input")
+out_dir <- file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "output")
+tmp_dir <- file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "tmp")
+code_dir <- file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "code")
+data_shp_dir <- file.path(ROOT, "data_sources", "Shapefiles", "AMC_Ehrl")
+data_ncdf_dir <- file.path(ROOT, "data_sources", "Climatologia", "Willmott_and_Matsuura", "Precipitation_V501")
 
 ####################
 # install packages
@@ -51,10 +51,10 @@ install.packages("tmap")
 install.packages("tidyverse")
 
 # installing packages
-packages_vector <- c('ggplot2','tidyverse', 'dplyr')
-geopackages<-c('raster','ncdf4', 'sf')
-lapply(packages_vector, require, character.only = TRUE) # the "lapply" function means "apply this function to the elements of this list or more restricted data 
-lapply(geopackages, require, character.only = TRUE) 
+packages_vector <- c("ggplot2", "tidyverse", "dplyr")
+geopackages <- c("raster", "ncdf4", "sf")
+lapply(packages_vector, require, character.only = TRUE) # the "lapply" function means "apply this function to the elements of this list or more restricted data
+lapply(geopackages, require, character.only = TRUE)
 
 ####################
 # load library
@@ -67,16 +67,16 @@ library(tmap)
 library(stringr)
 library(tidyverse)
 
-# I will create a panel data of Brazilians AMC, month by month. 
-# First, I will get the structure of the data from the shapefile. 
+# I will create a panel data of Brazilians AMC, month by month.
+# First, I will get the structure of the data from the shapefile.
 
 # read shapefile
 setwd(data_shp_dir)
-shapefile<-st_read('amc_2000_2010.shp')
+shapefile <- st_read("amc_2000_2010.shp")
 crs(shapefile)
 
 # convert crs
-shapefile <- st_transform(shapefile, crs=CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs+ towgs84=0,0,0"))
+shapefile <- st_transform(shapefile, crs = CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs+ towgs84=0,0,0"))
 
 # check AMC shapefile
 class(shapefile)
@@ -98,13 +98,13 @@ crs(shapefile)
 
 # the data format: netcdf
 setwd(data_ncdf_dir)
-list_files<-list.files(pattern=".nc")
+list_files <- list.files(pattern = ".nc")
 print(list_files)
 length(list_files)
 
 # call netcdf file
-temp_file1<- "precip.mon.total.v501.nc" 
-temp_file1 = brick(temp_file1) # read netcdf file
+temp_file1 <- "precip.mon.total.v501.nc"
+temp_file1 <- brick(temp_file1) # read netcdf file
 
 # Important note: the unit of degrees of rainfall might change depending on the dataset used
 # The data "precip.mon.total.v501.nc" is from NOAA
@@ -117,7 +117,7 @@ crs(temp_file1)
 
 # convert longitife [0 360] to [-180 180]
 # this a common issue in statelite data
-temp_file2 = rotate(temp_file1)
+temp_file2 <- rotate(temp_file1)
 
 # check the data
 extent(temp_file2)
@@ -128,49 +128,50 @@ extract <- raster::extract
 
 # Extract the mean value of cells within AMC polygon
 # Alternative: look to "mask" function ?mask
-masked_file<-extract(temp_file2, 
-                     shapefile, 
-                     fun = mean,
-                     na.rm=TRUE, 
-                     df=F, 
-                     small=T, 
-                     sp=T,  
-                     weights=TRUE, 
-                     normalizedweights=TRUE)
+masked_file <- extract(temp_file2,
+  shapefile,
+  fun = mean,
+  na.rm = TRUE,
+  df = F,
+  small = T,
+  sp = T,
+  weights = TRUE,
+  normalizedweights = TRUE
+)
 
 #################################################
-# Loop 
+# Loop
 #################################################
 
-nl <- masked_file@data %>% 
+nl <- masked_file@data %>%
   length()
 
 # begin of loop
-for (i in 20:nl){
-  
-  
+for (i in 20:nl) {
+
+
   # extract only relevant variables
   munic <- masked_file$GEOCODIG_M
   amc_2000 <- masked_file$amc_2000_2
   monthly_rainfall <- masked_file[i]
-  date <- masked_file[i] %>% 
-    names() %>% 
+  date <- masked_file[i] %>%
+    names() %>%
     str_sub(start = 2, end = 11)
-  
+
   # Compile the codes for AMC and time variable in one dataframe
   df <- data.frame(munic, amc_2000, monthly_rainfall, date)
 
   # rename variables
   colnames(df)[3] <- "monthly_rainfall"
-  
+
   # save data as .csv
   setwd(in_dir)
-  
-  write.csv(df, 
-            paste0(in_dir, "/amc_rainfall_csv/", date , "_amc_rainfall.csv"), 
-            row.names = TRUE,
+
+  write.csv(df,
+    paste0(in_dir, "/amc_rainfall_csv/", date, "_amc_rainfall.csv"),
+    row.names = TRUE,
   ) # overwrites
-  
+
   # print
   print(i)
   print(date)
