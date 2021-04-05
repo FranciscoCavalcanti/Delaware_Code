@@ -65,7 +65,6 @@ library(raster)
 library(sf)
 library(tmap)
 library(stringr)
-library(tidyverse)
 
 # read shapefile
 setwd(data_shp_dir)
