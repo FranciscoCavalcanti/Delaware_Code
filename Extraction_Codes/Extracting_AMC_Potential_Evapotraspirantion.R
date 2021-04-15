@@ -48,11 +48,11 @@ if (user == "Francisco") {
   stop("Invalid user")
 }
 
-home_dir <- file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware")
-in_dir <- file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "input")
-out_dir <- file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "output")
-tmp_dir <- file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "tmp")
-code_dir <- file.path(ROOT, "political_alignment_and_droughts", "build", "7_delaware", "code")
+home_dir <- file.path(ROOT, "Consultancy", "2020-Steven_Helfand")
+in_dir <- file.path(ROOT, "Consultancy", "2020-Steven_Helfand", "input")
+out_dir <- file.path(ROOT, "Consultancy", "2020-Steven_Helfand", "output")
+tmp_dir <- file.path(ROOT, "Consultancy", "2020-Steven_Helfand", "tmp")
+code_dir <- file.path(ROOT, "Consultancy", "2020-Steven_Helfand", "code")
 data_shp_dir <- file.path(ROOT, "data_sources", "Shapefiles", "AMC_Ehrl")
 data_ncdf_dir <- file.path(ROOT, "data_sources", "Climatologia", "Willmott_and_Matsuura", "Water_Budget_V401", "Potential_Evapotranspiration")
 
@@ -69,7 +69,7 @@ library(tidyverse)
 
 # read shapefile
 setwd(data_shp_dir)
-shapefile <- st_read("amc_2000_2010.shp")
+shapefile <- st_read("amc_1980_2010.shp")
 crs(shapefile)
 
 # convert crs
@@ -185,13 +185,13 @@ for (yr in 1969:2017) {
 
     # extract only relevant variables
     munic <- masked_file$GEOCODIG_M
-    amc_2000 <- masked_file$amc_2000_2
+    amc_1980 <- masked_file$amc_1980_2
     monthly_p_evapotranspiration <- masked_file[i]
     month <- masked_file[i] %>%
       names()
 
     # Compile the codes for AMC and time variable in one dataframe
-    df <- data.frame(munic, amc_2000, monthly_p_evapotranspiration, yr, month)
+    df <- data.frame(munic, amc_1980, monthly_p_evapotranspiration, yr, month)
 
     # rename variables
     colnames(df)[3] <- "monthly_p_evapotranspiration"
